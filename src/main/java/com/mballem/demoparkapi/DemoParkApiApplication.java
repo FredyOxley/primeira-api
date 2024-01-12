@@ -9,4 +9,5 @@ public class DemoParkApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoParkApiApplication.class, args);
 	}
+
 }

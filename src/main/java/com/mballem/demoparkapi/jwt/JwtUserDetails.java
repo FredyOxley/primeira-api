@@ -1,10 +1,8 @@
 package com.mballem.demoparkapi.jwt;
 
-
 import com.mballem.demoparkapi.entity.Usuario;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
-
 
 public class JwtUserDetails extends User {
 
@@ -22,5 +20,4 @@ public class JwtUserDetails extends User {
     public String getRole() {
         return this.usuario.getRole().name();
     }
-
 }

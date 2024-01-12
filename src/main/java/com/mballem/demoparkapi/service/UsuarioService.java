@@ -4,7 +4,6 @@ import com.mballem.demoparkapi.entity.Usuario;
 import com.mballem.demoparkapi.exception.EntityNotFoundException;
 import com.mballem.demoparkapi.exception.PasswordInvalidException;
 import com.mballem.demoparkapi.exception.UsernameUniqueViolationException;
-import com.mballem.demoparkapi.jwt.JwtUserDetails;
 import com.mballem.demoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,32 +18,33 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public Usuario salvar(Usuario usuario) {
         try {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             return usuarioRepository.save(usuario);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new UsernameUniqueViolationException(String.format("Username %s já cadastrado!", usuario.getUsername()));
+            throw new UsernameUniqueViolationException(String.format("Username '%s' já cadastrado", usuario.getUsername()));
         }
     }
 
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuário  id=%s não encontrado", id))
+                () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado", id))
         );
     }
 
     @Transactional
     public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if (!novaSenha.equals(confirmaSenha)) {
-            throw new PasswordInvalidException("Nova senha e confirmação não conferem!");
+            throw new PasswordInvalidException("Nova senha não confere com confirmação de senha.");
         }
 
         Usuario user = buscarPorId(id);
         if (!passwordEncoder.matches(senhaAtual, user.getPassword())) {
-            throw new PasswordInvalidException("Sua senha não confere!");
+            throw new PasswordInvalidException("Sua senha não confere.");
         }
 
         user.setPassword(passwordEncoder.encode(novaSenha));
@@ -56,10 +56,10 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Usuario buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuário com '%s' encontrado", username))
+                () -> new EntityNotFoundException(String.format("Usuario com '%s' não encontrado", username))
         );
     }
 

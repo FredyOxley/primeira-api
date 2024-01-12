@@ -27,7 +27,6 @@ public class ErrorMessage {
     }
 
     public ErrorMessage(HttpServletRequest request, HttpStatus status, String message) {
-
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -36,7 +35,6 @@ public class ErrorMessage {
     }
 
     public ErrorMessage(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
-
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -47,8 +45,9 @@ public class ErrorMessage {
 
     private void addErrors(BindingResult result) {
         this.errors = new HashMap<>();
-        for(FieldError fieldError : result.getFieldErrors()) {
+        for (FieldError fieldError : result.getFieldErrors()) {
             this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }
+
 }

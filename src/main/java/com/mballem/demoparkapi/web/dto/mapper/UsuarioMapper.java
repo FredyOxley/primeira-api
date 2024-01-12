@@ -1,7 +1,7 @@
 package com.mballem.demoparkapi.web.dto.mapper;
 
-import com.mballem.demoparkapi.web.dto.UsuarioCreateDto;
 import com.mballem.demoparkapi.entity.Usuario;
+import com.mballem.demoparkapi.web.dto.UsuarioCreateDto;
 import com.mballem.demoparkapi.web.dto.UsuarioResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -31,5 +31,4 @@ public class UsuarioMapper {
     public static List<UsuarioResponseDto> toListDto(List<Usuario> usuarios) {
         return usuarios.stream().map(user -> toDto(user)).collect(Collectors.toList());
     }
-
 }
