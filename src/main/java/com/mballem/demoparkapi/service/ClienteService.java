@@ -1,6 +1,7 @@
 package com.mballem.demoparkapi.service;
 
 import com.mballem.demoparkapi.entity.Cliente;
+import com.mballem.demoparkapi.exception.CpfUniqueViolationException;
 import com.mballem.demoparkapi.exception.EntityNotFoundException;
 import com.mballem.demoparkapi.repository.ClienteRepository;
 import com.mballem.demoparkapi.repository.projection.ClienteProjection;
@@ -40,5 +41,11 @@ public class ClienteService {
     @Transactional(readOnly = true)
     public Cliente buscarPorUsuarioId(Long id) {
         return clienteRepository.findByUsuarioId(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Cliente buscarPorCpf(String cpf) {
+        return clienteRepository.findByCpf(cpf).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Cliente com CPF '%s' não encontrado", cpf)));
     }
 }

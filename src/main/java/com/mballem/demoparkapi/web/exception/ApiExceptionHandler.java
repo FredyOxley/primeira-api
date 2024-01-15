@@ -4,7 +4,7 @@ import com.mballem.demoparkapi.exception.CodigoUniqueViolationException;
 import com.mballem.demoparkapi.exception.EntityNotFoundException;
 import com.mballem.demoparkapi.exception.PasswordInvalidException;
 import com.mballem.demoparkapi.exception.UsernameUniqueViolationException;
-import com.mballem.demoparkapi.service.CpfUniqueViolationException;
+import com.mballem.demoparkapi.exception.CpfUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
