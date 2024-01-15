@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class EstacionamentoCreateDto {
     @NotBlank
     @Size(min = 8, max = 8)
